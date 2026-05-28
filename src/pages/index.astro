@@ -1,17 +1,268 @@
 ---
+import "../styles/global.css";
 
+const scatter = (
+  count,
+  className,
+  { xStep, yStep, xOffset, yOffset, minScale = 0.7, maxScale = 1, maxRotate = 28 },
+) =>
+  Array.from({ length: count }, (_, index) => {
+    const item = index + 1;
+    const x = ((item * xStep + xOffset) % 94) + 3;
+    const y = ((item * yStep + yOffset) % 86) + 7;
+    const scale = (minScale + (((item * 17) % 100) / 100) * (maxScale - minScale)).toFixed(2);
+    const rotate = ((item * 29) % (maxRotate * 2)) - maxRotate;
+    const delay = -(((item * 11) % 34) / 10).toFixed(1);
+
+    return {
+      className: `${className} ${className}-${item}`,
+      style: `--x: ${x}%; --y: ${y}%; --s: ${scale}; --r: ${rotate}deg; --d: ${delay}s;`,
+    };
+  });
+
+const flowers = scatter(46, "flower", {
+  xStep: 31,
+  yStep: 47,
+  xOffset: 4,
+  yOffset: 8,
+  minScale: 0.62,
+  maxScale: 1,
+});
+
+const leaves = scatter(32, "leaf", {
+  xStep: 43,
+  yStep: 37,
+  xOffset: 11,
+  yOffset: 3,
+  minScale: 0.72,
+  maxScale: 1.12,
+});
+
+const sparkles = scatter(24, "sparkle", {
+  xStep: 29,
+  yStep: 41,
+  xOffset: 21,
+  yOffset: 12,
+  minScale: 0.58,
+  maxScale: 0.92,
+});
+
+const grass = scatter(70, "grass", {
+  xStep: 23,
+  yStep: 31,
+  xOffset: 5,
+  yOffset: 17,
+  minScale: 0.72,
+  maxScale: 1.18,
+});
+
+const pebbles = scatter(20, "pebble", {
+  xStep: 37,
+  yStep: 19,
+  xOffset: 14,
+  yOffset: 33,
+  minScale: 0.68,
+  maxScale: 1,
+});
+
+const subjectStones = [
+  {
+    href: "/subjects/history",
+    className: "stone-history",
+    label: "历史",
+    aria: "历史石：进入历史学科",
+    tooltip: "历史石 · 小瓢虫",
+    bug: "tiny-ladybug",
+  },
+  {
+    href: "/subjects/geography",
+    className: "stone-geography",
+    label: "地理",
+    aria: "地理石：进入地理学科",
+    tooltip: "地理石 · 小蜗牛",
+    bug: "tiny-snail",
+  },
+  {
+    href: "/subjects/biology",
+    className: "stone-biology",
+    label: "生物",
+    aria: "生物石：进入生物学科",
+    tooltip: "生物石 · 小蜜蜂",
+    bug: "tiny-bee",
+  },
+  {
+    href: "/subjects/morality",
+    className: "stone-politics",
+    label: "道法",
+    aria: "道法石：进入道法学科",
+    tooltip: "道法石 · 萤火虫",
+    bug: "tiny-firefly",
+  },
+  {
+    href: "https://github.com/GODONG-DN/Code",
+    external: true,
+    className: "stone-oi",
+    label: "算法",
+    aria: "算法石：打开 GitHub 算法仓库",
+    tooltip: "算法石 · GitHub 题库",
+    bug: "tiny-mechbug",
+  },
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta
+      name="description"
+      content="StudyForest 是一个卡通学习花园主页，入口连接历史、地理、生物、道法和算法。"
+    />
+    <meta name="theme-color" content="#8dde74" />
+    <title>StudyForest</title>
+  </head>
+
+  <body>
+    <div class="loading-screen" aria-label="StudyForest 加载界面">
+      <div class="loading-content">
+        <div class="loading-emblem" aria-hidden="true">
+          <span class="emblem-stone"></span>
+          <span class="emblem-leaf emblem-leaf-1"></span>
+          <span class="emblem-leaf emblem-leaf-2"></span>
+          <span class="emblem-bug"></span>
+        </div>
+
+        <p class="loading-eyebrow">STUDYFOREST</p>
+        <h1 class="loading-title">学习花园</h1>
+        <p class="loading-text">整理今天的知识种子...</p>
+
+        <div class="loading-bar" aria-hidden="true">
+          <span class="loading-progress"></span>
+        </div>
+      </div>
+    </div>
+
+    <main class="garden-scene scene-enter" aria-label="StudyForest 学习花园">
+      <div class="sky-light"></div>
+      <div class="sun-rays"></div>
+      <div class="grass-texture"></div>
+      <div class="soft-shadow"></div>
+
+      <section class="garden-map">
+        <div class="garden-path path-1"></div>
+        <div class="garden-path path-2"></div>
+        <div class="garden-path path-3"></div>
+        <div class="garden-path path-4"></div>
+        <div class="garden-path path-5"></div>
+
+        <div class="garden-cloud cloud-1"></div>
+        <div class="garden-cloud cloud-2"></div>
+        <div class="garden-cloud cloud-3"></div>
+
+        {pebbles.map((item) => <i class={item.className} style={item.style} aria-hidden="true"></i>)}
+
+        <div class="pond">
+          <span class="pond-ring"></span>
+          <span class="pond-shine pond-shine-1"></span>
+          <span class="pond-shine pond-shine-2"></span>
+          <span class="pond-shine pond-shine-3"></span>
+          <span class="lily lily-1"></span>
+          <span class="lily lily-2"></span>
+          <span class="lily lily-3"></span>
+          <span class="reed reed-1"></span>
+          <span class="reed reed-2"></span>
+          <span class="reed reed-3"></span>
+        </div>
+
+        <div class="flower-bed flower-bed-1"></div>
+        <div class="flower-bed flower-bed-2"></div>
+        <div class="flower-bed flower-bed-3"></div>
+        <div class="flower-bed flower-bed-4"></div>
+        <div class="flower-bed flower-bed-5"></div>
+        <div class="flower-bed flower-bed-6"></div>
+        <div class="flower-bed flower-bed-7"></div>
+
+        <div class="moss moss-1"></div>
+        <div class="moss moss-2"></div>
+        <div class="moss moss-3"></div>
+        <div class="moss moss-4"></div>
+        <div class="moss moss-5"></div>
+
+        <div class="garden-sign">
+          <span class="sign-post sign-post-left"></span>
+          <span class="sign-post sign-post-right"></span>
+          <span class="sign-board">
+            <b>StudyForest</b>
+            <small>点击石头进入学科</small>
+          </span>
+        </div>
+
+        <div class="bush bush-1"></div>
+        <div class="bush bush-2"></div>
+        <div class="bush bush-3"></div>
+        <div class="bush bush-4"></div>
+        <div class="bush bush-5"></div>
+        <div class="bush bush-6"></div>
+        <div class="bush bush-7"></div>
+        <div class="bush bush-8"></div>
+        <div class="bush bush-9"></div>
+        <div class="bush bush-10"></div>
+
+        <div class="stone stone-1"></div>
+        <div class="stone stone-2"></div>
+        <div class="stone stone-3"></div>
+        <div class="stone stone-4"></div>
+        <div class="stone stone-5"></div>
+        <div class="stone stone-6"></div>
+        <div class="stone stone-7"></div>
+        <div class="stone stone-8"></div>
+        <div class="stone stone-9"></div>
+
+        {grass.map((item) => <i class={item.className} style={item.style} aria-hidden="true"></i>)}
+        {flowers.map((item) => <i class={item.className} style={item.style} aria-hidden="true"></i>)}
+        {leaves.map((item) => <i class={item.className} style={item.style} aria-hidden="true"></i>)}
+        {sparkles.map((item) => <i class={item.className} style={item.style} aria-hidden="true"></i>)}
+
+        <div class="butterfly butterfly-1"><span></span></div>
+        <div class="butterfly butterfly-2"><span></span></div>
+        <div class="butterfly butterfly-3"><span></span></div>
+        <div class="butterfly butterfly-4"><span></span></div>
+
+        <div class="subject-stone-field" aria-label="学科石头入口">
+          {subjectStones.map((stone) => (
+            <a
+              class={`subject-stone ${stone.className}`}
+              href={stone.href}
+              target={stone.external ? "_blank" : undefined}
+              rel={stone.external ? "noreferrer" : undefined}
+              aria-label={stone.aria}
+            >
+              <span class="study-stone">
+                <i class="stone-highlight"></i>
+                <i class="stone-subject">{stone.label}</i>
+                <i class={`stone-bug ${stone.bug}`}>
+                  <b></b>
+                </i>
+              </span>
+              <span class="stone-tooltip">{stone.tooltip}</span>
+            </a>
+          ))}
+        </div>
+
+        <div class="entry-sparkles" aria-hidden="true">
+          <span class="entry-sparkle entry-sparkle-1"></span>
+          <span class="entry-sparkle entry-sparkle-2"></span>
+          <span class="entry-sparkle entry-sparkle-3"></span>
+          <span class="entry-sparkle entry-sparkle-4"></span>
+          <span class="entry-sparkle entry-sparkle-5"></span>
+          <span class="entry-sparkle entry-sparkle-6"></span>
+        </div>
+
+        <div class="foreground foreground-left"></div>
+        <div class="foreground foreground-right"></div>
+        <div class="foreground foreground-bottom"></div>
+        <div class="foreground foreground-top"></div>
+      </section>
+    </main>
+  </body>
 </html>

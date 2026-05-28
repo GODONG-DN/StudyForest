@@ -1,43 +1,24 @@
-# Astro Starter Kit: Minimal
+# Study Forest
+
+一个用 Astro 构建的学习专注花园界面。页面把计时器、今日计划、成长记录和花园视觉放在同一个首屏中，适合作为专注学习产品的原型首页。
+
+## 运行
 
 ```sh
-npm create astro@latest -- --template minimal
+npm install
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 构建
 
-## 🚀 Project Structure
+```sh
+npm run build
+```
 
-Inside of your Astro project, you'll see the following folders and files:
+## 项目结构
 
 ```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+src/pages/index.astro   首页结构、静态数据和轻量计时交互
+src/styles/global.css   全局样式、响应式布局和花园插画
+public/                 图标与静态资源
 ```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
